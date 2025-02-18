@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>posts-detail</title>
+        <link rel="stylesheet" href="/prac/css/utils.css">
+        <link rel="stylesheet" href="/prac/css/posts.css">
+    </head>
+    <body>
+        <div id="header"></div>
+        <div class="mainContainer">
+            <div class="postsContainer" style="width: 570px;">
+                <div style="font-size: 20px; text-align: center; line-height: 25px; font-weight: 700;"><strong>게시글 수정</strong></div>
+                <div class="div-title">
+                    <div>제목*</div>
+                    <div>
+                        <input type="text" id="posts-make-title-id" class="posts-make-title-input" placeholder="제목을 입력해주세요. (최대 26글자)">
+                    </div>
+                </div>
+                <div class="div-title">
+                    <div>내용*</div>
+                    <div>
+                        <textarea id="posts-make-contents-id" placeholder="내용을 입력해주세요."></textarea>
+                    </div>
+                    <div class="helper-text" style="font-size: 12px;">* helper text</div>
+                </div>
+                <div class="div-title" style="margin-bottom: 20px;">
+                    <div>이미지</div>
+                    <div style="margin-left: 10px; margin-top: -10px;">
+                        <button id="posts-file-select">파일 선택</button>
+                        <span id="posts-make-image-id" style="margin-left: 10px; font-size: 14px;">파일을 선택해주세요.</span>
+                    </div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="button-util" style="width: 355px; background-color: #7F6AEE;">수정하기</button>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

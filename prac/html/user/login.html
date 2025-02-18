@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>Log in</title>
+        <link rel="stylesheet" href="/prac/css/utils.css">
+        <link rel="stylesheet" href="/prac/css/login.css">
+        
+    </head>
+    <body>
+        <div id="header"></div>
+        <div class="mainContainer">
+            <div class="loginContainer">
+                <div class="span-text">로그인</div>
+                <div style="margin: 10px;">
+                    <div class="input-area">
+                        <div class="input-title">이메일</div>
+                        <input type="text" class="input-text" placeholder="이메일을 입력하세요">
+                    </div>
+                    <div class="input-area">
+                        <div class="input-title">비밀번호</div>
+                        <input type="text" class="input-text" placeholder="비밀번호를 입력하세요">
+                    </div>
+                    <div class="helper-text">
+                        * helper text
+                    </div>
+                </div>
+                <div class="login-button">
+                    <button class="button-util" width="">로그인</button>
+                </div>
+                <div id="moveSignin" style="text-align: center;">
+                    <a class="login-signin">회원가입</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="/prac/js/utils.js"></script> 
+        <script src="/prac/js/user.js"></script>
+        <script>
+            window.onload = function() {
+                document.getElementById("moveSignin").addEventListener("click", () => {
+                    window.location.href = "./signin.html";
+                });
+            }
+        </script>
+    </body>
+</html>

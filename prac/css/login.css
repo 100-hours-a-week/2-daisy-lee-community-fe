@@ -1,0 +1,49 @@
+.loginContainer {
+    width: 350px;
+    height: 100%;;
+}
+
+.login-input {
+    font-size: 15px;
+}
+
+.login-button {
+    width: 100%;
+}
+
+.login-signin {
+    font-size: 14px;
+    color: #000000;
+    text-decoration: none;
+}
+
+.profile-button {
+    margin: 0 100px;
+    width: 149px;
+    height: 149px;
+    background-color: #C4C4C4;
+    border: 0;
+    font-size: 30px;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.edit-done {
+    width: 102px;
+    height: 46px;
+    background-color: #ACA0EB;
+    color: #FFFFFF;
+    border: 0;
+    border-radius: 30px;
+    margin: 10px;
+    font-size: 18px;
+}
