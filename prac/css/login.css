@@ -1,6 +1,9 @@
 .loginContainer {
     width: 350px;
-    height: 100%;;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
 }
 
 .login-input {
@@ -18,18 +21,22 @@
 }
 
 .profile-button {
-    margin: 0 100px;
     width: 149px;
     height: 149px;
-    background-color: #C4C4C4;
-    border: 0;
-    font-size: 30px;
-    border-radius: 100px;
+    border-radius: 50%;
+    background-color: #ddd; /* 기본 회색 버튼 */
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 24px;
+    font-weight: bold;
     cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    margin: auto;
 }
+
 
 .edit-div {
     display: flex;

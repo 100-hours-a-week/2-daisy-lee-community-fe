@@ -66,19 +66,28 @@
         <script type="module">
             import { isDuplicationEmail, isDuplicationNickname, btnLoginActive, btnLoginDisabled } from '../../js/validation.js';
             // 유효성 검사, 이미지 설정 등 파일 분리 필요..
-            const profileRealUpload = document.querySelector('#profile-upload');
-            const profileUpload = document.querySelector('.profile-button');
             let isValidEmail = false, isValidPassword = false, isValidRepassword = false, isValidNickname = false;
 
             function getProfileImage(e) {
-                const file = e.target.files;
-                console.log(typeof file, file);
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const profileButton = document.querySelector('.profile-button');
+                    profileButton.style.backgroundImage = `url(${event.target.result})`;
+                    profileButton.textContent = ""; // 기존의 "+" 문자 제거
+                };
+
+                reader.readAsDataURL(file);
             }
-        
-            profileUpload.addEventListener('click', () =>
-                profileRealUpload.click()
-            );
+
+            const profileRealUpload = document.querySelector('#profile-upload');
+            const profileUpload = document.querySelector('.profile-button');
+
+            profileUpload.addEventListener('click', () => profileRealUpload.click());
             profileRealUpload.addEventListener('change', getProfileImage);
+
 
             // 이메일 입력
             document.getElementById("signin-input-email").addEventListener("keyup", async function (e) {
