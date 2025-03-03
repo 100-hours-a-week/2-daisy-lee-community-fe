@@ -1,0 +1,16 @@
+[
+    {
+        "id" : 1,
+        "email" : "test@startupcode.kr",
+        "password" : "test1234",
+        "nickname" : "startup",
+        "profile_image" : "https://image.kr/img.jpg"
+    },
+    {
+        "id" : 2,
+        "email" : "example@example.com",
+        "password" : "abcdABCD1234!",
+        "nickname" : "채원",
+        "profile_image" : "https://image.kr/img.jpg"
+    }
+]

@@ -5,7 +5,6 @@
         <title>Log in</title>
         <link rel="stylesheet" href="/prac/css/utils.css">
         <link rel="stylesheet" href="/prac/css/login.css">
-        
     </head>
     <body>
         <div id="header"></div>
@@ -15,33 +14,110 @@
                 <div style="margin: 10px;">
                     <div class="input-area">
                         <div class="input-title">이메일</div>
-                        <input type="text" class="input-text" placeholder="이메일을 입력하세요">
+                        <input id="login-input-email" type="text" class="input-text" placeholder="이메일을 입력하세요">
+                        <div id="helper-1" class="helper-text hide">* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)</div>
+                        <div id="helper-2" class="helper-text hide">* 이메일을 입력해주세요.</div>
                     </div>
                     <div class="input-area">
                         <div class="input-title">비밀번호</div>
-                        <input type="text" class="input-text" placeholder="비밀번호를 입력하세요">
-                    </div>
-                    <div class="helper-text">
-                        * helper text
+                        <input id="login-input-password" type="password" class="input-text" placeholder="비밀번호를 입력하세요">
+                        <div id="helper-1" class="helper-text hide">* 비밀번호를 입력해주세요</div>
+                        <div id="helper-2" class="helper-text hide">* 비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.</div>
                     </div>
                 </div>
-                <div class="login-button">
-                    <button class="button-util" width="">로그인</button>
+                <div id="login-button" class="login-button">
+                    <input id="login-button" type="button" class="disable-button button-util" width="" disabled="disabled" value="로그인">
                 </div>
                 <div id="moveSignin" style="text-align: center;">
-                    <a class="login-signin">회원가입</a>
+                    <a class="login-signup">회원가입</a>
                 </div>
             </div>
         </div>
 
         <script src="/prac/js/utils.js"></script> 
         <script src="/prac/js/user.js"></script>
-        <script>
+        <script type="module">
+            import { isDuplicationEmail, isDuplicationNickname, btnLoginActive, btnLoginDisabled } from '../../js/validation.js';
+
+            const loginInputEmail = document.getElementById("login-input-email");
+            const loginInputPassword = document.getElementById("login-input-password");
+            const loginBtn = document.getElementById("login-button");
+            let isValidEmail = false, isValidPassword = false;
+
             window.onload = function() {
                 document.getElementById("moveSignin").addEventListener("click", () => {
                     window.location.href = "./signin.html";
                 });
             }
+
+            // 이메일 입력
+            loginInputEmail.addEventListener("keyup", async function (e) {
+                let emailInput = this.value;
+                // 이메일 유효성 검사 정규식
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput === "") {
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.remove('hide');
+                    isValidEmail = false;
+                } else if (!emailRegex.test(emailInput)) {
+                    this.parentNode.querySelector('#helper-1').classList.remove('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidEmail = false;
+                } else { // 모든 조건 통과
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidEmail = true;
+                }
+            });
+
+            // 비밀번호 입력
+            loginInputPassword.addEventListener("keyup", function (e) {
+                let passwordInput = this.value;
+                const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,20}$/;
+                if (passwordInput === "") {
+                    this.parentNode.querySelector('#helper-1').classList.remove('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidPassword = false;
+                } else if(!passwordRegex.test(passwordInput)) {
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.remove('hide');
+                    isValidPassword = false;
+                } else { // 모든 조건 통과
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidPassword = true;
+                }
+            });
+
+            window.addEventListener("keyup", (e) => {
+                if(isValidEmail && isValidPassword) {
+                    btnLoginActive();
+                } else {
+                    btnLoginDisabled();
+                }
+            });
+
+            // 로그인 버튼이 클릭되었을 때
+            loginBtn.addEventListener("click", async function() {
+                try {
+                    const response = await fetch("../../data/user.json");
+                    const data = await response.json();
+                    
+                    // "email"이 일치하는 데이터 찾기
+                    const parseData = data.find((item) => item.email === loginInputEmail.value);
+                    
+                    if (parseData.password === loginInputPassword.value) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (error) {
+                    console.error("canLogin Error : ", error);
+                    return false;
+                }
+            });
+
+
         </script>
     </body>
 </html>
