@@ -1,15 +1,15 @@
             
-const loginButton = document.querySelector('.login-button input');
-function btnLoginActive() {
-    loginButton.disabled = false;
-    loginButton.classList.add('active-button');
-    loginButton.classList.remove('disable-button');
+// const loginButton = document.querySelector('.login-button input');
+function btnLoginActive(selectButton) {
+    selectButton.disabled = false;
+    selectButton.classList.add('active-button');
+    selectButton.classList.remove('disable-button');
 }
 
-function btnLoginDisabled() {
-    loginButton.disabled = true;
-    loginButton.classList.remove('active-button');
-    loginButton.classList.add('disable-button');
+function btnLoginDisabled(selectButton) {
+    selectButton.disabled = true;
+    selectButton.classList.remove('active-button');
+    selectButton.classList.add('disable-button');
 }
 
 async function isDuplicationEmail(emailInput) {

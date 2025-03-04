@@ -9,8 +9,6 @@
         <script src="/prac/js/user.js"></script> 
     </head>
     <body>
-        
-
         <div id="header"></div>
         <section>
             <div class="mainContainer">
@@ -67,6 +65,10 @@
             import { isDuplicationEmail, isDuplicationNickname, btnLoginActive, btnLoginDisabled } from '../../js/validation.js';
             // 유효성 검사, 이미지 설정 등 파일 분리 필요..
             let isValidEmail = false, isValidPassword = false, isValidRepassword = false, isValidNickname = false;
+            const email = document.getElementById("signin-input-email");
+            const password = document.getElementById("signin-input-password");
+            const repassword = document.getElementById("signin-input-repassword");
+            const nickname = document.getElementById("signin-input-nickname");
 
             function getProfileImage(e) {
                 const file = e.target.files[0];
@@ -90,8 +92,8 @@
 
 
             // 이메일 입력
-            document.getElementById("signin-input-email").addEventListener("keyup", async function (e) {
-                let emailInput = document.getElementById("signin-input-email").value;
+            email.addEventListener("keyup", async function (e) {
+                let emailInput = email.value;
                 // 이메일 유효성 검사 정규식
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (emailInput === "") {
@@ -121,8 +123,8 @@
             });
 
             // 비밀번호 입력
-            document.getElementById("signin-input-password").addEventListener("keyup", function (e) {
-                let passwordInput = document.getElementById("signin-input-password").value;
+            password.addEventListener("keyup", function (e) {
+                let passwordInput = password.value;
                 const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,20}$/;
                 if (passwordInput === "") {
                     this.parentNode.querySelector('#helper-1').classList.remove('hide');
@@ -140,13 +142,13 @@
             });
 
             // 비밀번호 재입력
-            document.getElementById("signin-input-repassword").addEventListener("keyup", function (e) {
-                let repasswordInput = document.getElementById("signin-input-repassword").value;
+            repassword.addEventListener("keyup", function (e) {
+                let repasswordInput = repassword.value;
                 if (repasswordInput === "") {
                     this.parentNode.querySelector('#helper-1').classList.remove('hide');
                     this.parentNode.querySelector('#helper-2').classList.add('hide');
                     isValidRepassword = false;
-                } else if (repasswordInput !== document.getElementById("signin-input-password").value) {
+                } else if (repasswordInput !== password.value) {
                     this.parentNode.querySelector('#helper-1').classList.add('hide');
                     this.parentNode.querySelector('#helper-2').classList.remove('hide');
                     isValidRepassword = false;
@@ -158,8 +160,8 @@
             });
 
             // 닉네임 입력
-            document.getElementById("signin-input-nickname").addEventListener("keyup", async function (e) {
-                let nicknameInput = document.getElementById("signin-input-nickname").value;
+            nickname.addEventListener("keyup", async function (e) {
+                let nicknameInput = nickname.value;
                 const nicknameRegex = /\s/g;
                 if (nicknameInput === "") {
                     this.parentNode.querySelector('#helper-1').classList.remove('hide');

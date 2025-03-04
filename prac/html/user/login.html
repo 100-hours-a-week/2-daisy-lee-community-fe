@@ -42,6 +42,8 @@
             const loginInputEmail = document.getElementById("login-input-email");
             const loginInputPassword = document.getElementById("login-input-password");
             const loginBtn = document.getElementById("login-button");
+            const loginInputValue = document.querySelector('.login-button input');
+
             let isValidEmail = false, isValidPassword = false;
 
             window.onload = function() {
@@ -91,9 +93,9 @@
 
             window.addEventListener("keyup", (e) => {
                 if(isValidEmail && isValidPassword) {
-                    btnLoginActive();
+                    btnLoginActive(loginInputValue);
                 } else {
-                    btnLoginDisabled();
+                    btnLoginDisabled(loginInputValue);
                 }
             });
 
@@ -107,6 +109,14 @@
                     const parseData = data.find((item) => item.email === loginInputEmail.value);
                     
                     if (parseData.password === loginInputPassword.value) {
+                        const emailValue = loginInputEmail.value;
+                        const nicknameValue = parseData.nickname;
+                        const currentUser = {
+                            emailValue,
+                            nicknameValue
+                        };
+
+                        localStorage.setItem("currentUser", JSON.stringify(currentUser));
                         alert("로그인에 성공하셨습니다!");
                         window.location.href = "../posts/list.html";
                     } else {
