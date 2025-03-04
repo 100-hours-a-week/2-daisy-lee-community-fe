@@ -1,5 +1,6 @@
-const MAX_TITLE_LENGTH = 26;
+const MAX_TITLE_LENGTH = 26; // 게시물 제목 최대 글자수
 
+// 게시물 목록 출력
 async function setList() {
     try {
         const postJson = await fetch("/prac/data/posts.json");
@@ -45,6 +46,7 @@ async function setList() {
     }
 }
 
+// 게시물 목록 내 숫자 표시 format (좋아요, 댓글, 조회수)
 function formatNumber(num) {
     if (num >= 100000) return Math.floor(num / 1000) + "k";
     if (num >= 10000) return Math.floor(num / 1000) + "k";
@@ -52,14 +54,15 @@ function formatNumber(num) {
     return num;
 }
 
-
+// 게시물 클릭 시 상세보기 페이지 이동
 function detailPost(postId) {
-    alert(`게시물 ${postId} 상세보기 페이지로 이동!`);
+    location.href = `/prac/html/posts/detail.html?id=${postId}`; 
+    // alert(`게시물 ${postId} 상세보기 페이지로 이동!`);
 }
 
 
 // 게시물 작성 시 이미지 선택
-function getProfileImage(e) {
+function getPostThumbnailImage(e) {
     const file = e.target.files[0];
     if (!file) return;
 
@@ -73,15 +76,4 @@ function getProfileImage(e) {
 }
 
 const postThumbnailUpload = document.querySelector('#post-thumbnail-upload');
-postThumbnailUpload.addEventListener('change', getProfileImage);
-
-
-// 게시물 작성 시 글자 수 제한 이벤트
-// const postTitleInput = document.getElementById("posts-make-title-input");
-
-// postTitleInput.addEventListener("keyup", function() {
-//     if(postTitleInput.value.length > MAX_TITLE_LENGTH) {
-
-//     }
-// });
-
+postThumbnailUpload.addEventListener('change', getPostThumbnailImage);

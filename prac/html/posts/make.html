@@ -22,7 +22,7 @@
                     <div>
                         <textarea class="posts-make-contents-input" placeholder="내용을 입력해주세요."></textarea>
                     </div>
-                    <div class="helper-text" style="font-size: 12px;">* helper text</div>
+                    <!-- <div class="helper-text" style="font-size: 12px;">* helper text</div> -->
                 </div>
                 <div class="posts-make" style="margin-bottom: 20px;">
                     <div>이미지</div>
@@ -35,15 +35,41 @@
                     
                 </div>
                 <div style="text-align: center;">
-                    <button class="disable-button button-util" style="width: 355px;">완료</button>
+                    <button id="post-make-button" class="disable-button button-util" style="width: 355px;">완료</button>
                 </div>
             </div>
         </div>
         <script src="/prac/js/utils.js"></script> 
         <script src="/prac/js/posts.js"></script>
     </body>
-    <script>
-        
+    <script type="module">
+        import { btnLoginActive, btnLoginDisabled } from "/prac/js/validation.js";
+
+        // 게시물 작성 시 제목, 내용 validation check
+        const titleInput = document.getElementById("posts-make-title-input");
+        const contentInput = document.querySelector(".posts-make-contents-input");
+        const makeButton = document.getElementById("post-make-button"); 
+
+        function validateInputs() {
+            const title = titleInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if (title !== "" && content !== "") {
+                btnLoginActive(makeButton);
+            } else {
+                btnLoginDisabled(makeButton);
+            }
+        }
+
+        titleInput.addEventListener("input", validateInputs);
+        contentInput.addEventListener("input", validateInputs);
+
+        validateInputs();
+
+        makeButton.addEventListener("click", function() {
+
+        });
+
     </script>
 
 </html>

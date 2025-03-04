@@ -69,6 +69,7 @@
             const password = document.getElementById("signin-input-password");
             const repassword = document.getElementById("signin-input-repassword");
             const nickname = document.getElementById("signin-input-nickname");
+            const signupBtn = document.getElementById("signup-button");
 
             function getProfileImage(e) {
                 const file = e.target.files[0];
@@ -202,14 +203,14 @@
 
             window.addEventListener("keyup", (e) => {
                 if(isValidEmail && isValidPassword && isValidRepassword && isValidNickname) {
-                    btnLoginActive();
+                    btnLoginActive(signupBtn);
                 } else {
-                    btnLoginDisabled();
+                    btnLoginDisabled(signupBtn);
                 }
             });
 
             // 회원가입 버튼이 클릭되었을 때
-            document.getElementById("signup-button").addEventListener("click", function() {
+            signupBtn.addEventListener("click", function() {
                 if(confirm('회원 가입을 축하드립니다! 확인 버튼 클릭 시, 로그인 페이지로 이동됩니다.')) {
                     location.href = "./login.html";
                 }
