@@ -29,7 +29,6 @@ async function setList() {
                                 : post.title;
             
 
-            debugger;
             postItem.innerHTML = `
                     <div id="postItem" style="cursor: pointer;">
                         <div class="posts-title">${shortTitle}</div>
@@ -68,4 +67,3 @@ function detailPost(postId) {
     alert(`게시물 ${postId} 상세보기 페이지로 이동!`);
 }
 
-setList();
