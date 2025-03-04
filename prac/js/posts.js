@@ -77,3 +77,63 @@ function getPostThumbnailImage(e) {
 
 const postThumbnailUpload = document.querySelector('#post-thumbnail-upload');
 postThumbnailUpload.addEventListener('change', getPostThumbnailImage);
+
+
+/* 게시물 상세보기 */
+async function setDetail() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get("id");
+
+        if(!postId) {
+            alert("해당 게시물을 찾을 수 없습니다.");
+            location.href("/prac/html/posts/list.html");
+            return;
+        }
+        const postJson = await fetch("/prac/data/posts.json");
+        const data = await postJson.json();
+        const posts = data.posts;
+
+        const post = posts.find(post => post.id == postId);
+        if(!post) {
+            alert("해당 게시물을 찾을 수 없습니다.");
+            location.href("/prac/html/posts/list.html");
+            return;
+        }
+        
+        // 게시물 내용 바인딩
+        document.querySelector(".posts-title").textContent = post.title;
+        document.querySelector(".posts-author").textContent = post.authorId;
+        document.querySelector(".posts-date").textContent = post.createdAt;
+        document.querySelector(".posts-text").textContent = post.contents;
+        document.querySelector(".posts-count:nth-child(1) p").textContent = post.countLike;
+        document.querySelector(".posts-count:nth-child(2) p").textContent = post.countView;
+        document.querySelector(".posts-count:nth-child(3) p").textContent = post.comments.length;
+
+        // 댓글 목록 및 내용 바인딩
+        const replyList = document.querySelector(".posts-reply-list");
+        replyList.innerHTML = ""; // 기존 댓글 초기화
+        
+        post.comments.forEach(comment => {
+            const commentDiv = document.createElement("div");
+            commentDiv.classList.add("posts-reply-unit");
+            commentDiv.innerHTML = `
+                <div class="posts-profile" style="display: inline-flex; width: 70%;">
+                    <div class="posts-profileImage"></div>
+                    <span class="posts-author">작성자: ${comment.authorId}</span>
+                    <span class="posts-date">${comment.createdAt}</span>
+                </div>
+                <div style="margin-left: auto; display: inline-block;">
+                    <button class="posts-small-btn">수정</button>
+                    <button class="posts-small-btn">삭제</button>
+                </div>
+                <div class="posts-reply-text">
+                    ${comment.content}
+                </div>
+            `;
+            replyList.appendChild(commentDiv);
+        });
+    } catch (error) {
+        console.error("게시물 목록 오류 : ", error);
+    }
+}

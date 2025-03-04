@@ -46,6 +46,15 @@ body {
     width: 100%;
 }
 
+.back-button {
+    position: absolute;
+    left: calc(24% + 10px); 
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+    text-decoration: none;
+}
+
 .mainContainer {
     margin: 0;
     height: 100vh;
