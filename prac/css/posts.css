@@ -1,6 +1,7 @@
 .postsContainer {
     width: 600px;
     height: auto;
+    max-height: 640px;
 }
 
 .postsArticle {
@@ -202,4 +203,12 @@
     background-color: #00000059;
     color: #FFFFFF;
     font-weight: 700;
+}
+
+#post-thumbnail-upload-preview {
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    border: 1px solid lightgray;
+    background-repeat: round;
 }

@@ -1,13 +1,3 @@
-// document.addEventListener("DOMContentLoaded", async function() {
-//     try {
-//         const postJson = await fetch("/prac/data/posts.json");
-//         const data = await postJson.json();
-
-
-//     }
-
-// });
-
 const MAX_TITLE_LENGTH = 26;
 
 async function setList() {
@@ -66,4 +56,32 @@ function formatNumber(num) {
 function detailPost(postId) {
     alert(`게시물 ${postId} 상세보기 페이지로 이동!`);
 }
+
+
+// 게시물 작성 시 이미지 선택
+function getProfileImage(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const previewThumbnail = document.querySelector('#post-thumbnail-upload-preview');
+        previewThumbnail.style.backgroundImage = `url(${event.target.result})`;
+    };
+
+    reader.readAsDataURL(file);
+}
+
+const postThumbnailUpload = document.querySelector('#post-thumbnail-upload');
+postThumbnailUpload.addEventListener('change', getProfileImage);
+
+
+// 게시물 작성 시 글자 수 제한 이벤트
+// const postTitleInput = document.getElementById("posts-make-title-input");
+
+// postTitleInput.addEventListener("keyup", function() {
+//     if(postTitleInput.value.length > MAX_TITLE_LENGTH) {
+
+//     }
+// });
 
