@@ -5,47 +5,47 @@
             "title": "첫 번째 게시물!",
             "contents": "첫 번째 게시물의 내용내용",
             "authorId": 1,
-            "createdAt": "2099-12-31 00:00:00",
-            "countLike": 3,
-            "countView": 99,
+            "createdAt": "2025-02-11 00:00:00",
+            "countLike": 5000,
+            "countView": 100000,
             "comments": [
                 {
                 "id": 101,
                 "content": "정말 좋은 글이네요!",
                 "authorId": 2,
-                "createdAt": "2025-02-22T14:00:00Z"
+                "createdAt": "2025-02-11 14:00:00"
                 },
                 {
                 "id": 102,
                 "content": "감사합니다. 많은 도움이 됐어요!",
                 "authorId": 3,
-                "createdAt": "2025-02-22T15:30:45Z"
+                "createdAt": "2025-02-11 15:30:00"
                 }
             ]
         },
         {
             "id": 102,
-            "title": "첫 번째 게시물!",
-            "contents": "첫 번째 게시물의 내용내용",
+            "title": "두두두 번째 게시물!",
+            "contents": "두번째인데요 쓸 말이 없어요",
             "authorId": 1,
-            "createdAt": "2099-12-31 00:00:00",
-            "countLike": 3,
-            "countView": 23,
+            "createdAt": "2025-02-20 00:00:00",
+            "countLike": 1000,
+            "countView": 10000,
             "comments": [
                 {
                 "id": 103,
                 "content": "정말 좋은 글이네요!",
                 "authorId": 2,
-                "createdAt": "2025-02-22T14:00:00Z"
+                "createdAt": "2025-02-21 15:30:00"
                 }
             ]
         },
         {
             "id": 103,
-            "title": "첫 번째 게시물!",
-            "contents": "첫 번째 게시물의 내용내용",
+            "title": "아주 길고 길고 길고 너무 길어서 다 못보여주는 제목인데 어디까지 보이려나",
+            "contents": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
             "authorId": 1,
-            "createdAt": "2099-12-31 00:00:00",
+            "createdAt": "2025-02-23 00:00:00",
             "countLike": 3,
             "countView": 23,
             "comments": [
@@ -53,25 +53,25 @@
                     "id": 104,
                     "content": "정말 좋은 글이네요!",
                     "authorId": 2,
-                    "createdAt": "2025-02-22T14:00:00Z"
+                    "createdAt": "2025-02-23 15:30:00"
                 },
                 {
                     "id": 105,
                     "content": "감사합니다. 많은 도움이 됐어요!",
                     "authorId": 3,
-                    "createdAt": "2025-02-22T15:30:45Z"
+                    "createdAt": "2025-02-24 19:30:00"
                 },
                 {
                     "id": 106,
                     "content": "감사합니다. 많은 도움이 됐어요!",
                     "authorId": 3,
-                    "createdAt": "2025-02-22T15:30:45Z"
+                    "createdAt": "2025-02-24 21:20:00"
                 },
                 {
                     "id": 107,
                     "content": "감사합니다. 많은 도움이 됐어요!",
-                    "authorId": 3,
-                    "createdAt": "2025-02-22T15:30:45Z"
+                    "authorId": 1,
+                    "createdAt": "2025-02-25 01:00:00"
                 }
             ]
         }
