@@ -106,14 +106,14 @@ async function setDetail() {
         document.querySelector(".posts-author").textContent = post.authorId;
         document.querySelector(".posts-date").textContent = post.createdAt;
         document.querySelector(".posts-text").textContent = post.contents;
-        document.querySelector(".posts-count:nth-child(1) p").textContent = post.countLike;
-        document.querySelector(".posts-count:nth-child(2) p").textContent = post.countView;
-        document.querySelector(".posts-count:nth-child(3) p").textContent = post.comments.length;
+        document.querySelector(".posts-count:nth-child(1) p").textContent = formatNumber(post.countLike);
+        document.querySelector(".posts-count:nth-child(2) p").textContent = formatNumber(post.countView);
+        document.querySelector(".posts-count:nth-child(3) p").textContent = formatNumber(post.comments.length);
 
         // 댓글 목록 및 내용 바인딩
         const replyList = document.querySelector(".posts-reply-list");
         replyList.innerHTML = ""; // 기존 댓글 초기화
-        
+
         post.comments.forEach(comment => {
             const commentDiv = document.createElement("div");
             commentDiv.classList.add("posts-reply-unit");

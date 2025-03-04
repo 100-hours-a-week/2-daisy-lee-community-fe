@@ -1,8 +1,27 @@
 <link rel="stylesheet" href="/prac/css/utils.css">
 
 <div class="headerContainer">
-    <a href="/prac/html/posts/list.html" id="back-button" class="back-button">
+    <a id="back-button" class="back-button">
         ＜
     </a>
     <span class="top-title">아무 말 대잔치</span>
 </div>
+<script>
+    // document.getElementById("back-button").addEventListener("click", async function() {
+    //     await window.history.back();
+    // });
+
+
+    function goBack() {
+        window.history.back();
+    }
+
+    window.goBack = goBack; 
+    window.onload = function() {
+        const backButton = document.getElementById("back-button");
+        if (backButton) {
+            backButton.addEventListener("click", window.history.back());
+        }
+    };
+
+</script>

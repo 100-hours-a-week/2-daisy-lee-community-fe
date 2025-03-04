@@ -20,4 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       })
       .catch((error) => console.error("Top bar 로딩 오류:", error));
+
+    
+    
 });
