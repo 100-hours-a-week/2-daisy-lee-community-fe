@@ -214,3 +214,18 @@
     border: 1px solid lightgray;
     background-repeat: round;
 }
+
+.custom-file-label {
+    display: inline-block;
+    padding: 7px 10px;
+    background-color: lightgray;
+    color: #000000;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+#posts-edit-file-name {
+    margin-left: 10px;
+    color: #666;
+}

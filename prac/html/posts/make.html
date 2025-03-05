@@ -27,7 +27,9 @@
                 <div class="posts-write" style="margin-bottom: 20px;">
                     <div>이미지</div>
                     <div style="margin-left: 10px; margin-top: -10px;">
-                        <input type="file" id="post-thumbnail-upload" accept="image/*">
+                        <label for="post-thumbnail-upload" class="custom-file-label">파일 선택</label>
+                        <input type="file" id="post-thumbnail-upload" accept="image/*" style="display: none;">
+                        <span id="posts-edit-file-name"></span>
                         <div id="post-thumbnail-upload-preview">
                             
                         </div>

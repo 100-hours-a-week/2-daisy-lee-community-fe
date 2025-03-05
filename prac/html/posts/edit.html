@@ -14,20 +14,25 @@
                 <div class="posts-write">
                     <div>제목*</div>
                     <div>
-                        <input id="posts-write-title-input" maxlength="26" type="text" class="posts-write-title-input" placeholder="제목을 입력해주세요. (최대 26글자)">
+                        <input id="posts-edit-title-input" maxlength="26" type="text" class="posts-write-title-input" placeholder="제목을 입력해주세요. (최대 26글자)">
                     </div>
                 </div>
                 <div class="posts-write">
                     <div>내용*</div>
                     <div>
-                        <textarea class="posts-write-contents-input" placeholder="내용을 입력해주세요."></textarea>
+                        <textarea id="posts-edit-contents-input" class="posts-write-contents-input" placeholder="내용을 입력해주세요."></textarea>
                     </div>
                     <!-- <div class="helper-text" style="font-size: 12px;">* helper text</div> -->
                 </div>
                 <div class="posts-write" style="margin-bottom: 20px;">
                     <div>이미지</div>
                     <div style="margin-left: 10px; margin-top: -10px;">
-                        <input type="file" id="post-thumbnail-upload" accept="image/*">
+                        <!-- <input type="file" id="post-thumbnail-upload" accept="image/*">
+                        <label for="post-thumbnail-upload">sss</label> -->
+                        <label for="post-thumbnail-upload" class="custom-file-label">파일 선택</label>
+                        <input type="file" id="post-thumbnail-upload" accept="image/*" style="display: none;">
+                        <span id="posts-edit-file-name"></span>
+
                     </div>
                 </div>
                 <div style="text-align: center;">
@@ -35,6 +40,11 @@
                 </div>
             </div>
         </div>
+        <script src="/prac/js/utils.js" defer></script> 
+        <script src="/prac/js/posts.js"></script>
+        <script>
+            setEdit();
+        </script>
     </body>
 
 </html>

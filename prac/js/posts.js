@@ -172,3 +172,37 @@ function createPost() {
 }
 
 
+/* 게시물 수정 */
+async function setEdit() {
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const postId = params.get("id");
+
+        if(!postId) {
+            alert("해당 게시물을 찾을 수 없습니다.");
+            location.href = "/prac/html/posts/list.html";
+            return;
+        }
+
+        const postJson = await fetch("/prac/data/posts.json");
+        const postData = await postJson.json();
+        const posts = postData.posts;
+
+        const post = posts.find(post => post.id == postId);
+        if(!post) {
+            alert("해당 게시물을 찾을 수 없습니다.");
+            location.href = "/prac/html/posts/list.html";
+            return;
+        }
+    
+        // 게시물 내용 바인딩
+        document.getElementById("posts-edit-title-input").value = post.title;
+        document.getElementById("posts-edit-contents-input").value = post.contents;
+        debugger;
+        document.getElementById("posts-edit-file-name").textContent = post.thumbnail;
+
+    } catch (error) {
+        console.error("게시물 목록 오류 : ", error);
+    }
+}
+
