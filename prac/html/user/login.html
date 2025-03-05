@@ -106,7 +106,7 @@
                     const data = await response.json();
                     
                     // "email"이 일치하는 데이터 찾기
-                    const parseData = data.find((item) => item.email === loginInputEmail.value);
+                    const parseData = data.users.find((item) => item.email === loginInputEmail.value);
                     
                     if (parseData.password === loginInputPassword.value) {
                         const emailValue = loginInputEmail.value;
