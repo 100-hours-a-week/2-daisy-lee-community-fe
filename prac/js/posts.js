@@ -96,8 +96,12 @@ async function setDetail() {
             return;
         }
         const postJson = await fetch("/prac/data/posts.json");
-        const data = await postJson.json();
-        const posts = data.posts;
+        const postData = await postJson.json();
+        const posts = postData.posts;
+
+        const userJson = await fetch("/prac/data/user.json");
+        const userData = await userJson.json();
+        const users = userData.users;
 
         const post = posts.find(post => post.id == postId);
         if(!post) {
@@ -105,10 +109,22 @@ async function setDetail() {
             location.href = "/prac/html/posts/list.html";
             return;
         }
-        
+        const author = users.find(user => user.id === post.authorId);
+        const currentUser = localStorage.getItem("currentUser");
+
+        // 게시물 작성자와 현재 접속자가 동일할 경우
+        if(author.email === JSON.parse(currentUser).emailValue) {
+            document.getElementById("divPostsAdditionalBtn").innerHTML = `
+                <button id="btnAdditionalEdit" class="posts-small-btn">수정</button>
+                <button id="btnAdditionalDelete" class="posts-small-btn">삭제</button>
+            `;
+        }
+
+    
         // 게시물 내용 바인딩
         document.querySelector(".posts-title").textContent = post.title;
-        document.querySelector(".posts-author").textContent = post.authorId;
+        document.querySelector("#imgPostsProfileImage").src = author.profile_image;
+        document.querySelector(".posts-author").textContent = author.nickname;
         document.querySelector(".posts-date").textContent = post.createdAt;
         document.querySelector(".posts-text").textContent = post.contents;
         document.querySelector(".posts-count:nth-child(1) p").textContent = formatNumber(post.countLike);
@@ -120,12 +136,16 @@ async function setDetail() {
         replyList.innerHTML = ""; // 기존 댓글 초기화
 
         post.comments.forEach(comment => {
+            const commentAuthor = users.find(user => user.id === comment.authorId);
+            
             const commentDiv = document.createElement("div");
             commentDiv.classList.add("posts-reply-unit");
             commentDiv.innerHTML = `
                 <div class="posts-profile" style="display: inline-flex; width: 70%;">
-                    <div class="posts-profileImage"></div>
-                    <span class="posts-author">작성자: ${comment.authorId}</span>
+                    <div class="posts-profileImage">
+                        <img src="${commentAuthor ? commentAuthor.profile_image : "default.jpeg"}" style="width: 36px; height: 36px; border-radius: 30px;">
+                    </div>
+                    <span class="posts-author">${commentAuthor ? commentAuthor.nickname : "알 수 없음"}</span>
                     <span class="posts-date">${comment.createdAt}</span>
                 </div>
                 <div style="margin-left: auto; display: inline-block;">
