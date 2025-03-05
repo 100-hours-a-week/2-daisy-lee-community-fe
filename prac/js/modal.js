@@ -22,6 +22,11 @@ async function btnDeleteModal(type) {
             modalOverlay.classList.remove("show");
         });
 
+        btnConfirmModal.addEventListener("click", () => {
+            alert("게시물이 삭제되었습니다.");
+            location.href = "/prac/html/posts/list.html";
+        });
+
         // 배경 클릭 시 모달 닫기
         // modalOverlay.addEventListener("click", function () {
         //     modal.classList.remove("show");
