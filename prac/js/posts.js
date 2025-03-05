@@ -4,9 +4,12 @@ const MAX_TITLE_LENGTH = 26; // 게시물 제목 최대 글자수
 async function setList() {
     try {
         const postJson = await fetch("/prac/data/posts.json");
-        const data = await postJson.json();
+        const postData = await postJson.json();
+        const posts = postData.posts;
 
-        const posts = data.posts;
+        const userJson = await fetch("/prac/data/user.json");
+        const userData = await userJson.json();
+        const users = userData.users;
 
         const postList = document.getElementById("posts-list");
         postList.innerHTML = ""; // 목록 초기화
@@ -19,6 +22,7 @@ async function setList() {
                                 ? post.title.slice(0, MAX_TITLE_LENGTH) + "..." 
                                 : post.title;
             
+            const author = users.find(user => user.id === post.authorId);
 
             postItem.innerHTML = `
                     <div id="postItem" style="cursor: pointer;">
@@ -30,8 +34,10 @@ async function setList() {
                             <span id="posts-dateNum" style="float: right">${post.createdAt}</span>
                         </div>
                         <div class="posts-profile">
-                            <div class="posts-profileImage"></div>
-                            <span class="posts-author">${post.authorId}</span>
+                            <div class="posts-profileImage">
+                                <img src="${author ? author.profile_image : 'default.jpg'}" style="width: 36px; height: 36px; border-radius: 30px;">
+                            </div>
+                            <span class="posts-author">${author ? author.nickname : "알 수 없음"}</span>
                         </div>
                     </div>
                 `;
