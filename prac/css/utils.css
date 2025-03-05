@@ -53,6 +53,7 @@ body {
     cursor: pointer;
     display: none;
     text-decoration: none;
+    color: black;
 }
 
 .mainContainer {

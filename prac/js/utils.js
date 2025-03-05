@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
           const backButton = document.getElementById("back-button");
           const currentPage = window.location.pathname;
 
-          const pagesWithBackButton = ["/detail.html", "/another_page.html"]; 
+          const pagesWithBackButton = ["/detail.html", "/signup.html", "/make.html", "/edit.html"]; 
 
           if (pagesWithBackButton.some(page => currentPage.indexOf(page) !== -1)) {
               backButton.style.display = "block";
@@ -21,6 +21,5 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch((error) => console.error("Top bar 로딩 오류:", error));
 
-    
-    
+
 });

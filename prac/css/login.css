@@ -14,10 +14,11 @@
     width: 100%;
 }
 
-.login-signin {
+.login-signup {
     font-size: 14px;
     color: #000000;
     text-decoration: none;
+    cursor: pointer;
 }
 
 .profile-button {

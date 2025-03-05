@@ -57,7 +57,6 @@ function formatNumber(num) {
 // 게시물 클릭 시 상세보기 페이지 이동
 function detailPost(postId) {
     location.href = `/prac/html/posts/detail.html?id=${postId}`; 
-    // alert(`게시물 ${postId} 상세보기 페이지로 이동!`);
 }
 
 
@@ -87,7 +86,7 @@ async function setDetail() {
 
         if(!postId) {
             alert("해당 게시물을 찾을 수 없습니다.");
-            location.href("/prac/html/posts/list.html");
+            location.href = "/prac/html/posts/list.html";
             return;
         }
         const postJson = await fetch("/prac/data/posts.json");
@@ -97,7 +96,7 @@ async function setDetail() {
         const post = posts.find(post => post.id == postId);
         if(!post) {
             alert("해당 게시물을 찾을 수 없습니다.");
-            location.href("/prac/html/posts/list.html");
+            location.href = "/prac/html/posts/list.html";
             return;
         }
         
