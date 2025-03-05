@@ -74,6 +74,69 @@
                     "createdAt": "2025-02-25 01:00:00"
                 }
             ]
+        },
+        {
+            "id": 104,
+            "title": "네 번째 게시물입니다!",
+            "contents": "네 번째 게시물의 내용은 무엇일까요?",
+            "authorId": 2,
+            "createdAt": "2025-03-01 10:00:00",
+            "countLike": 250,
+            "countView": 4500,
+            "comments": [
+                {
+                    "id": 108,
+                    "content": "이 글을 읽고 감동받았습니다.",
+                    "authorId": 3,
+                    "createdAt": "2025-03-01 11:00:00"
+                },
+                {
+                    "id": 109,
+                    "content": "좋은 글 감사합니다!",
+                    "authorId": 1,
+                    "createdAt": "2025-03-01 12:30:00"
+                }
+            ]
+        },
+        {
+            "id": 105,
+            "title": "다섯 번째 글! 새로운 시작",
+            "contents": "다섯 번째 게시물의 내용을 적어봅니다.",
+            "authorId": 3,
+            "createdAt": "2025-03-02 15:20:00",
+            "countLike": 89,
+            "countView": 1200,
+            "comments": [
+                {
+                    "id": 110,
+                    "content": "이 글이 제게 많은 영감을 주었습니다.",
+                    "authorId": 2,
+                    "createdAt": "2025-03-02 16:00:00"
+                }
+            ]
+        },
+        {
+            "id": 106,
+            "title": "여섯 번째 게시물: 깊이 있는 이야기",
+            "contents": "여섯 번째 게시물에서는 조금 더 심오한 내용을 다루어 봅니다.",
+            "authorId": 1,
+            "createdAt": "2025-03-03 08:10:00",
+            "countLike": 12,
+            "countView": 220,
+            "comments": [
+                {
+                    "id": 111,
+                    "content": "정말 좋은 글입니다. 배울 점이 많네요!",
+                    "authorId": 3,
+                    "createdAt": "2025-03-03 09:30:00"
+                },
+                {
+                    "id": 112,
+                    "content": "이런 글을 더 자주 보고 싶어요!",
+                    "authorId": 2,
+                    "createdAt": "2025-03-03 10:15:00"
+                }
+            ]
         }
     ]
 }

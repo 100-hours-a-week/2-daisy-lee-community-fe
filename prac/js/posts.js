@@ -136,3 +136,7 @@ async function setDetail() {
         console.error("게시물 목록 오류 : ", error);
     }
 }
+
+function createPost() {
+    location.href = "/prac/html/posts/make.html"
+}
