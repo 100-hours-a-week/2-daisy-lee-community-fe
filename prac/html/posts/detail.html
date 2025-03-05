@@ -61,10 +61,14 @@
         //     });
         // });
         document.addEventListener("click", function(event) {
-    if (event.target && event.target.id === "btnAdditionalDelete") {
-        btnDeleteModal("post");
-    }
-});
+            if (event.target && event.target.id === "btnAdditionalDelete") {
+                btnDeleteModal("post");
+            } else if (event.target && event.target.id === "btnAdditionalEdit") {
+                const params = new URLSearchParams(window.location.search);
+                const postId = params.get("id");
+                editPost(postId);
+            }
+        });
 
         
     </script>

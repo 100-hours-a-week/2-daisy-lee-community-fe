@@ -65,6 +65,10 @@ function detailPost(postId) {
     location.href = `/prac/html/posts/detail.html?id=${postId}`; 
 }
 
+function editPost(postId) {
+    location.href = `/prac/html/posts/edit.html?id=${postId}`
+}
+
 
 // 게시물 작성 시 이미지 선택
 function getPostThumbnailImage(e) {

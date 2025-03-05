@@ -22,6 +22,7 @@ async function btnDeleteModal(type) {
             modalOverlay.classList.remove("show");
         });
 
+        // 확인 버튼 이벤트 추가
         btnConfirmModal.addEventListener("click", () => {
             alert("게시물이 삭제되었습니다.");
             location.href = "/prac/html/posts/list.html";

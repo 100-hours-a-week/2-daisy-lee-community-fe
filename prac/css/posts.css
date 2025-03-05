@@ -148,11 +148,11 @@
     margin-left: 65px;
 }
 
-.posts-make > div:first-child {
+.posts-write > div:first-child {
     margin: 20px 10px;
 }
 
-.posts-make-contents-input {
+.posts-write-contents-input {
     width: 97%;
     height: 300px;
     padding: 10px;
@@ -165,7 +165,7 @@
     outline: none;
 }
 
-.posts-make-title-input {
+.posts-write-title-input {
     border-top: 1px solid #00000029;
     border-left: 0;
     border-right: 0;

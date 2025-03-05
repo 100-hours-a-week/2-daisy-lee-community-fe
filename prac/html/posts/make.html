@@ -11,20 +11,20 @@
         <div class="mainContainer">
             <div class="postsContainer" style="width: 570px;">
                 <div style="font-size: 20px; text-align: center; line-height: 25px; font-weight: 700;"><strong>게시글 작성</strong></div>
-                <div class="posts-make">
+                <div class="posts-write">
                     <div>제목*</div>
                     <div>
-                        <input id="posts-make-title-input" maxlength="26" type="text" class="posts-make-title-input" placeholder="제목을 입력해주세요. (최대 26글자)">
+                        <input id="posts-write-title-input" maxlength="26" type="text" class="posts-write-title-input" placeholder="제목을 입력해주세요. (최대 26글자)">
                     </div>
                 </div>
-                <div class="posts-make">
+                <div class="posts-write">
                     <div>내용*</div>
                     <div>
-                        <textarea class="posts-make-contents-input" placeholder="내용을 입력해주세요."></textarea>
+                        <textarea class="posts-write-contents-input" placeholder="내용을 입력해주세요."></textarea>
                     </div>
                     <!-- <div class="helper-text" style="font-size: 12px;">* helper text</div> -->
                 </div>
-                <div class="posts-make" style="margin-bottom: 20px;">
+                <div class="posts-write" style="margin-bottom: 20px;">
                     <div>이미지</div>
                     <div style="margin-left: 10px; margin-top: -10px;">
                         <input type="file" id="post-thumbnail-upload" accept="image/*">
@@ -46,8 +46,8 @@
         import { btnLoginActive, btnLoginDisabled } from "/prac/js/validation.js";
 
         // 게시물 작성 시 제목, 내용 validation check
-        const titleInput = document.getElementById("posts-make-title-input");
-        const contentInput = document.querySelector(".posts-make-contents-input");
+        const titleInput = document.getElementById("posts-write-title-input");
+        const contentInput = document.querySelector(".posts-write-contents-input");
         const makeButton = document.getElementById("post-make-button"); 
 
         function validateInputs() {
