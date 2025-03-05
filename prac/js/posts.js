@@ -166,3 +166,5 @@ async function setDetail() {
 function createPost() {
     location.href = "/prac/html/posts/make.html"
 }
+
+
