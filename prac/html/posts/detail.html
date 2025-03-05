@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="/prac/css/posts.css">
     </head>
     <body>
+        <div id="modal-container"></div> <!-- 모달 표시 -->
         <div id="header"></div>
         <div class="mainContainer">
             <div id="postsContainer" class="postsContainer">
@@ -49,7 +50,22 @@
         <script src="/prac/js/utils.js" defer></script> 
         <script src="/prac/js/posts.js"></script>
     </body>
-    <script>
+    <script type="module">
+        import {btnDeleteModal} from "/prac/js/modal.js";
         setDetail();
+
+        // 삭제 버튼 클릭 시
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     document.getElementById("btnAdditionalDelete").addEventListener("click", function(event) {
+        //         btnDeleteModal("post");
+        //     });
+        // });
+        document.addEventListener("click", function(event) {
+    if (event.target && event.target.id === "btnAdditionalDelete") {
+        btnDeleteModal("post");
+    }
+});
+
+        
     </script>
 </html>

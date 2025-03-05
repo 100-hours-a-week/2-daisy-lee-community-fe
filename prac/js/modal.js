@@ -23,10 +23,10 @@ async function btnDeleteModal(type) {
         });
 
         // 배경 클릭 시 모달 닫기
-        modalOverlay.addEventListener("click", function () {
-            modal.classList.remove("show");
-            modalOverlay.classList.remove("show");
-        });
+        // modalOverlay.addEventListener("click", function () {
+        //     modal.classList.remove("show");
+        //     modalOverlay.classList.remove("show");
+        // });
 
         if(type === "post") {
             modal.querySelector(".modal_body h2").textContent = "게시물을 삭제하시겠습니까?";
