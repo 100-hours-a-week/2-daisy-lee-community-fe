@@ -70,6 +70,7 @@ function editPost(postId) {
 }
 
 
+
 // 게시물 작성 시 이미지 선택
 function getPostThumbnailImage(e) {
     const file = e.target.files[0];
@@ -99,8 +100,9 @@ function getPostThumbnailImageEdit(e) {
 
     reader.readAsDataURL(file);
 }
+
 const postThumbnailEdit = document.querySelector('#post-thumbnail-upload-edit');
-        postThumbnailEdit.addEventListener('change', getPostThumbnailImageEdit);
+postThumbnailEdit.addEventListener('change', getPostThumbnailImageEdit);
 
 /* 게시물 상세보기 */
 async function setDetail() {
@@ -168,16 +170,14 @@ async function setDetail() {
                     <span class="posts-date">${comment.createdAt}</span>
                 </div>
                 <div style="margin-left: auto; display: inline-block;">
-                    ${isMyComment ? `<button class="posts-small-btn">수정</button>
-                                     <button class="posts-small-btn">삭제</button>` : ""}
+                    ${isMyComment ? `<button id="btnCommentEdit" class="posts-small-btn">수정</button>
+                                     <button id="btnCommentDelete" class="posts-small-btn">삭제</button>` : ""}
                 </div>
                 <div class="posts-reply-text">
                     ${comment.content}
                 </div>
             `;
             replyList.appendChild(commentDiv);
-            // <button class="posts-small-btn">수정</button>
-            // <button class="posts-small-btn">삭제</button>
         });
     } catch (error) {
         console.error("게시물 목록 오류 : ", error);
@@ -221,4 +221,3 @@ async function setEdit() {
         console.error("게시물 목록 오류 : ", error);
     }
 }
-

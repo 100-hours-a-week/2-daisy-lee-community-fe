@@ -1,4 +1,4 @@
-async function btnDeleteModal(type) {
+async function btnDeleteModal(type, target) {
     const modalContainer = document.getElementById("modal-container");
 
     try {
@@ -23,9 +23,17 @@ async function btnDeleteModal(type) {
         });
 
         // 확인 버튼 이벤트 추가
-        btnConfirmModal.addEventListener("click", () => {
-            alert("게시물이 삭제되었습니다.");
-            location.href = "/prac/html/posts/list.html";
+        btnConfirmModal.addEventListener("click", (event) => {
+            if(type == "post"){
+                alert("게시물이 삭제되었습니다.");
+                location.href = "/prac/html/posts/list.html";
+            } else if(type == "comment") {
+                debugger;
+                target.parentElement.parentElement.remove();
+                alert("댓글이 삭제되었습니다.");
+            }
+            
+            
         });
 
         // 배경 클릭 시 모달 닫기

@@ -40,6 +40,7 @@
                             <textarea id="post-comment-input" placeholder="댓글을 남겨주세요!"></textarea>
                         </div>
                         <button id="btnCommentRegist" class="disable-button button-util" style="border-radius: 14px; width: 110px; font-weight: 700; margin-left: auto;">댓글 등록</button>
+                        <button id="btnCommentEdit" class="disable-button button-util" style="border-radius: 14px; width: 110px; font-weight: 700; margin-left: auto;">댓글 수정</button>
                     </div>
                     <div class="posts-reply-list">
                         
@@ -56,15 +57,82 @@
 
         setDetail();
 
+        // const commentRegistButton = document.getElementById("btnCommentRegist");
+        // const commentEditButton = document.getElementById("btnCommentEdit");
+
+        // function editComment(target) {
+        //     commentRegistButton.hidden();
+        //     commentEditButton.show();
+
+        //     const commentOrigin = target.parentElement.parentElement;
+        //     let commentText = commentOrigin.querySelector(".posts-reply-text").innerText;
+        //     document.getElementById("post-comment-input").value = commentText;
+        //     document.getElementById("btnCommentRegist").textContent = "댓글 수정";
+        //     btnLoginActive(commentRegistButton);
+        // }
+
+        // 버튼 요소 가져오기
         const commentRegistButton = document.getElementById("btnCommentRegist");
+        const commentEditButton = document.getElementById("btnCommentEdit");
+        const commentInput = document.getElementById("post-comment-input");
+
+        // 초기 상태: "댓글 수정" 버튼 숨기기
+        commentEditButton.style.display = "none";
+
+        function editComment(target) {
+            commentRegistButton.style.display = "none";
+            commentEditButton.style.display = "block";
+
+            // 선택한 댓글의 내용 가져와서 입력창에 채우기
+            const commentOrigin = target.parentElement.parentElement;
+            let commentText = commentOrigin.querySelector(".posts-reply-text").innerText;
+            commentInput.value = commentText;
+            btnLoginActive(commentEditButton);
+        }
+
+        function resetCommentForm() {
+            commentRegistButton.style.display = "block";
+            commentEditButton.style.display = "none";
+            commentInput.value = ""; // 입력창 초기화
+            btnLoginDisabled(commentEditButton); // 수정 버튼 비활성화
+        }
+
+        commentEditButton.addEventListener("click", function () {
+            alert("댓글이 수정되었습니다.");
+            // 실제 수정 로직
+
+            // 수정 후 다시 기본 상태로 변경
+            resetCommentForm();
+        });
+
+
+        document.addEventListener("input", function(event) {
+            const commentInput = event.target; // 이벤트가 발생한 요소
+            if (commentInput.id === "post-comment-input") { // 특정 요소인지 확인
+                if (commentInput.value.trim() !== '') {
+                    btnLoginActive(commentRegistButton);
+                } else {
+                    btnLoginDisabled(commentRegistButton);
+                }
+            }
+
+        });
 
         document.addEventListener("click", function(event) {
-            if (event.target && event.target.id === "btnAdditionalDelete") {
-                btnDeleteModal("post");
-            } else if (event.target && event.target.id === "btnAdditionalEdit") {
+            // 게시물 수정/삭제
+             if (event.target && event.target.id === "btnAdditionalEdit") {
                 const params = new URLSearchParams(window.location.search);
                 const postId = params.get("id");
                 editPost(postId);
+            } else if (event.target && event.target.id === "btnAdditionalDelete") {
+                btnDeleteModal("post");
+            }
+            
+            // 댓글 수정/삭제
+            if (event.target && event.target.id === "btnCommentEdit") {
+                editComment(event.target);
+            } else if (event.target && event.target.id === "btnCommentDelete") {
+                btnDeleteModal("comment", event.target);
             }
         });
 
@@ -78,15 +146,7 @@
                 this.classList.add("btn-like-enable");
             }
         });
-
-        document.getElementById("post-comment-input").addEventListener("keyup", function() {
-            if(this.value.trim() !== '') {
-                btnLoginActive(commentRegistButton);
-            } else {
-                btnLoginDisabled(commentRegistButton);
-            }
-        });
-
+        
         document.getElementById("btnCommentRegist").addEventListener("click", function() {
             // preventDefault ???? 화면 깜빡이지 않고 화면 바뀌는 것..
             let likeCount = Number(this.querySelector("p").textContent);
@@ -99,6 +159,5 @@
             }
         });
 
-        
     </script>
 </html>
