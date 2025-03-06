@@ -109,11 +109,13 @@
                     const parseData = data.users.find((item) => item.email === loginInputEmail.value);
                     
                     if (parseData.password === loginInputPassword.value) {
-                        const emailValue = loginInputEmail.value;
-                        const nicknameValue = parseData.nickname;
+                        const id = parseData.id;
+                        const email = parseData.email;
+                        const nickname = parseData.nickname;
                         const currentUser = {
-                            emailValue,
-                            nicknameValue
+                            id,
+                            email,
+                            nickname
                         };
 
                         localStorage.setItem("currentUser", JSON.stringify(currentUser));

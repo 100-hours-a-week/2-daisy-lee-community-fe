@@ -131,7 +131,7 @@ async function setDetail() {
         const currentUser = localStorage.getItem("currentUser");
 
         // 게시물 작성자와 현재 접속자가 동일할 경우
-        if(author.email === JSON.parse(currentUser).emailValue) {
+        if(author.id === JSON.parse(currentUser).id) {
             document.getElementById("divPostsAdditionalBtn").innerHTML = `
                 <button id="btnAdditionalEdit" class="posts-small-btn">수정</button>
                 <button id="btnAdditionalDelete" class="posts-small-btn">삭제</button>
@@ -155,7 +155,8 @@ async function setDetail() {
 
         post.comments.forEach(comment => {
             const commentAuthor = users.find(user => user.id === comment.authorId);
-            
+            const isMyComment = comment.authorId === JSON.parse(localStorage.getItem("currentUser")).id;
+
             const commentDiv = document.createElement("div");
             commentDiv.classList.add("posts-reply-unit");
             commentDiv.innerHTML = `
@@ -167,14 +168,16 @@ async function setDetail() {
                     <span class="posts-date">${comment.createdAt}</span>
                 </div>
                 <div style="margin-left: auto; display: inline-block;">
-                    <button class="posts-small-btn">수정</button>
-                    <button class="posts-small-btn">삭제</button>
+                    ${isMyComment ? `<button class="posts-small-btn">수정</button>
+                                     <button class="posts-small-btn">삭제</button>` : ""}
                 </div>
                 <div class="posts-reply-text">
                     ${comment.content}
                 </div>
             `;
             replyList.appendChild(commentDiv);
+            // <button class="posts-small-btn">수정</button>
+            // <button class="posts-small-btn">삭제</button>
         });
     } catch (error) {
         console.error("게시물 목록 오류 : ", error);

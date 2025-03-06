@@ -28,18 +28,18 @@
                         <div class="posts-thumbnail"></div>
                         <div class="posts-text"></div>
                         <div>
-                            <div class="posts-count"><p></p>좋아요수</div>
-                            <div class="posts-count"><p></p>조회수</div>
-                            <div class="posts-count"><p></p>댓글</div>
+                            <div id="btnLike" class="posts-count"><p></p>좋아요수</div>
+                            <div class="posts-count" style="cursor: auto;"><p></p>조회수</div>
+                            <div class="posts-count" style="cursor: auto;"><p></p>댓글</div>
                         </div>
                     </div>
                 </div>
                 <div class="postsArticle">
                     <div class="posts-reply">
                         <div>
-                            <textarea placeholder="댓글을 남겨주세요!"></textarea>
+                            <textarea id="post-comment-input" placeholder="댓글을 남겨주세요!"></textarea>
                         </div>
-                        <button class="button-util" style="border-radius: 14px; width: 110px; font-weight: 700; margin-left: auto;">댓글 등록</button>
+                        <button id="btnCommentRegist" class="disable-button button-util" style="border-radius: 14px; width: 110px; font-weight: 700; margin-left: auto;">댓글 등록</button>
                     </div>
                     <div class="posts-reply-list">
                         
@@ -51,15 +51,13 @@
         <script src="/prac/js/posts.js"></script>
     </body>
     <script type="module">
-        import {btnDeleteModal} from "/prac/js/modal.js";
+        import { btnDeleteModal } from "/prac/js/modal.js";
+        import { btnLoginActive, btnLoginDisabled } from "/prac/js/validation.js";
+
         setDetail();
 
-        // 삭제 버튼 클릭 시
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     document.getElementById("btnAdditionalDelete").addEventListener("click", function(event) {
-        //         btnDeleteModal("post");
-        //     });
-        // });
+        const commentRegistButton = document.getElementById("btnCommentRegist");
+
         document.addEventListener("click", function(event) {
             if (event.target && event.target.id === "btnAdditionalDelete") {
                 btnDeleteModal("post");
@@ -67,6 +65,37 @@
                 const params = new URLSearchParams(window.location.search);
                 const postId = params.get("id");
                 editPost(postId);
+            }
+        });
+
+        document.getElementById("btnLike").addEventListener("click", function() {
+            let likeCount = Number(this.querySelector("p").textContent);
+            if(this.classList.contains('btn-like-enable')) {
+                this.querySelector("p").textContent = --likeCount;
+                this.classList.remove("btn-like-enable");
+            } else {
+                this.querySelector("p").textContent = ++likeCount;
+                this.classList.add("btn-like-enable");
+            }
+        });
+
+        document.getElementById("post-comment-input").addEventListener("keyup", function() {
+            if(this.value.trim() !== '') {
+                btnLoginActive(commentRegistButton);
+            } else {
+                btnLoginDisabled(commentRegistButton);
+            }
+        });
+
+        document.getElementById("btnCommentRegist").addEventListener("click", function() {
+            // preventDefault ???? 화면 깜빡이지 않고 화면 바뀌는 것..
+            let likeCount = Number(this.querySelector("p").textContent);
+            if(this.classList.contains('btn-like-enable')) {
+                this.querySelector("p").textContent = --likeCount;
+                this.classList.remove("btn-like-enable");
+            } else {
+                this.querySelector("p").textContent = ++likeCount;
+                this.classList.add("btn-like-enable");
             }
         });
 
