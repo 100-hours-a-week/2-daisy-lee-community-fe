@@ -84,9 +84,23 @@ function getPostThumbnailImage(e) {
     reader.readAsDataURL(file);
 }
 
-const postThumbnailUpload = document.querySelector('#post-thumbnail-upload');
-postThumbnailUpload.addEventListener('change', getPostThumbnailImage);
 
+
+// 게시물 수정 시 이미지 선택
+function getPostThumbnailImageEdit(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const fileName = document.getElementById("posts-file-name");
+        fileName.textContent = file.name;
+    };
+
+    reader.readAsDataURL(file);
+}
+const postThumbnailEdit = document.querySelector('#post-thumbnail-upload-edit');
+        postThumbnailEdit.addEventListener('change', getPostThumbnailImageEdit);
 
 /* 게시물 상세보기 */
 async function setDetail() {
@@ -198,8 +212,7 @@ async function setEdit() {
         // 게시물 내용 바인딩
         document.getElementById("posts-edit-title-input").value = post.title;
         document.getElementById("posts-edit-contents-input").value = post.contents;
-        debugger;
-        document.getElementById("posts-edit-file-name").textContent = post.thumbnail;
+        document.getElementById("posts-file-name").textContent = post.thumbnail;
 
     } catch (error) {
         console.error("게시물 목록 오류 : ", error);
