@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>게시물 작성</title>
+    <link rel="stylesheet" href="../../css/utils.css">
+    <link rel="stylesheet" href="../../css/posts.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="mainContainer">
+        <div class="postsContainer" style="width: 570px;">
+            <div style="font-size: 20px; text-align: center; line-height: 25px; font-weight: 700;"><strong>게시글
+                    작성</strong></div>
+            <div class="posts-write">
+                <div>제목*</div>
+                <div>
+                    <input id="posts-write-title-input" maxlength="26" type="text" class="posts-write-title-input"
+                        placeholder="제목을 입력해주세요. (최대 26글자)">
+                </div>
+            </div>
+            <div class="posts-write">
+                <div>내용*</div>
+                <div>
+                    <textarea class="posts-write-contents-input" placeholder="내용을 입력해주세요."></textarea>
+                </div>
+                <!-- <div class="helper-text" style="font-size: 12px;">* helper text</div> -->
+            </div>
+            <div class="posts-write" style="margin-bottom: 20px;">
+                <div>이미지</div>
+                <div style="margin-left: 10px; margin-top: -10px;">
+                    <label for="post-thumbnail-upload" class="custom-file-label">파일 선택</label>
+                    <input type="file" id="post-thumbnail-upload" accept="image/*" style="display: none;">
+                    <span id="posts-file-name"></span>
+                    <div id="post-thumbnail-upload-preview">
+
+                    </div>
+                </div>
+
+            </div>
+            <div style="text-align: center;">
+                <button id="post-make-button" class="disable-button button-util" style="width: 355px;">완료</button>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="../../js/posts.js"></script>
+    <script src="../../js/utils.js" defer></script>
+    <script src="../../js/top.js"></script>
+</body>
+<!-- <script type="module">
+        import { btnLoginActive, btnLoginDisabled } from "../../js/validation.js";
+
+        // 게시물 작성 시 제목, 내용 validation check
+        const titleInput = document.getElementById("posts-write-title-input");
+        const contentInput = document.querySelector(".posts-write-contents-input");
+        const makeButton = document.getElementById("post-make-button"); 
+
+        // 이미지 업로드
+        const postThumbnailUpload = document.querySelector('#post-thumbnail-upload');
+        postThumbnailUpload.addEventListener('change', getPostThumbnailImage);
+        
+        function validateInputs() {
+            const title = titleInput.value.trim();
+            const content = contentInput.value.trim();
+
+            if (title !== "" && content !== "") {
+                btnLoginActive(makeButton);
+            } else {
+                btnLoginDisabled(makeButton);
+            }
+        }
+
+        titleInput.addEventListener("input", validateInputs);
+        contentInput.addEventListener("input", validateInputs);
+
+        validateInputs();
+
+        makeButton.addEventListener("click", function() {
+            alert("성공적으로 게시물을 작성했습니다!");
+            location.href = "/prac/html/posts/list.html";
+        });
+
+    </script> -->
+
+</html>

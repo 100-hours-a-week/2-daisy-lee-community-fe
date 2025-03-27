@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>API 테스트</title>
+</head>
+
+<body>
+  <h1>API 호출</h1>
+  <button onclick="callApi()">호출!</button>
+  <p id="result"></p>
+
+  <script>
+    function callApi() {
+      fetch('http://localhost:8080/api/hello')
+        .then(res => res.text())
+        .then(data => console.log(data));
+    }
+  </script>
+</body>
+
+</html>

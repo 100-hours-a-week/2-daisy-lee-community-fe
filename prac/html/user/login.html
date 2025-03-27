@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>로그인</title>
+        <link rel="stylesheet" href="../../css/utils.css">
+        <link rel="stylesheet" href="../../css/login.css">
+        <script src="../../js/utils.js"></script> 
+        <script src="../../js/user.js"></script> 
+        <script src="../../js/top.js"></script>
+    </head>
+    <body>
+        <div id="header"></div>
+        <div class="mainContainer">
+            <div class="loginContainer">
+                <div class="span-text">로그인</div>
+                <div style="margin: 10px;">
+                    <div class="input-area">
+                        <div class="input-title">이메일</div>
+                        <input id="login-input-email" type="text" class="input-text" placeholder="이메일을 입력하세요">
+                        <div id="helper-1" class="helper-text hide">* 올바른 이메일 주소 형식을 입력해주세요. (예: example@example.com)</div>
+                        <div id="helper-2" class="helper-text hide">* 이메일을 입력해주세요.</div>
+                    </div>
+                    <div class="input-area">
+                        <div class="input-title">비밀번호</div>
+                        <input id="login-input-password" type="password" class="input-text" placeholder="비밀번호를 입력하세요">
+                        <div id="helper-1" class="helper-text hide">* 비밀번호를 입력해주세요</div>
+                        <div id="helper-2" class="helper-text hide">* 비밀번호는 8자 이상, 20자 이하이며, 대문자, 소문자, 숫자, 특수문자를 각각 최소 1개 포함해야 합니다.</div>
+                    </div>
+                </div>
+                <div id="login-button" class="login-button">
+                    <input id="login-button" type="button" class="disable-button button-util" width="" disabled="disabled" value="로그인">
+                </div>
+                <div id="moveSignin" style="text-align: center;">
+                    <a class="login-signup">회원가입</a>
+                </div>
+            </div>
+        </div>
+        <script type="module">
+            import { isDuplicationEmail, isDuplicationNickname, btnLoginActive, btnLoginDisabled } from '../../js/validation.js';
+            import { loginUser } from "../../js/user.js";
+            
+            const loginInputEmail = document.getElementById("login-input-email");
+            const loginInputPassword = document.getElementById("login-input-password");
+            const loginBtn = document.getElementById("login-button");
+            const loginInputValue = document.querySelector('.login-button input');
+
+            let isValidEmail = false, isValidPassword = false;
+
+            window.onload = function() {
+                document.getElementById("moveSignin").addEventListener("click", () => {
+                    window.location.href = "./signup.html";
+                });
+            }
+
+            // 이메일 입력
+            loginInputEmail.addEventListener("keyup", async function (e) {
+                let emailInput = this.value;
+                // 이메일 유효성 검사 정규식
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (emailInput === "") {
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.remove('hide');
+                    isValidEmail = false;
+                } else if (!emailRegex.test(emailInput)) {
+                    this.parentNode.querySelector('#helper-1').classList.remove('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidEmail = false;
+                } else { // 모든 조건 통과
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidEmail = true;
+                }
+            });
+
+            // 비밀번호 입력
+            loginInputPassword.addEventListener("keyup", function (e) {
+                let passwordInput = this.value;
+                const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,20}$/;
+                if (passwordInput === "") {
+                    this.parentNode.querySelector('#helper-1').classList.remove('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidPassword = false;
+                } else if(!passwordRegex.test(passwordInput)) {
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.remove('hide');
+                    isValidPassword = false;
+                } else { // 모든 조건 통과
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    isValidPassword = true;
+                }
+            });
+
+            window.addEventListener("keyup", (e) => {
+                if(isValidEmail && isValidPassword) {
+                    btnLoginActive(loginInputValue);
+                } else {
+                    btnLoginDisabled(loginInputValue);
+                }
+            });
+
+            // 로그인 버튼이 클릭되었을 때
+            loginBtn.addEventListener("click", async function () {
+                try {
+                    const res = await loginUser({
+                        email: loginInputEmail.value,
+                        password: loginInputPassword.value
+                    });
+
+                    const userData = res.data; // loginResponseDto
+
+                    localStorage.setItem("accessToken", userData.accessToken);
+                    window.location.href = "../posts/list.html";
+                } catch (error) {
+                    console.error("login error:", error);
+                }
+            });
+
+
+        </script>
+    </body>
+</html>

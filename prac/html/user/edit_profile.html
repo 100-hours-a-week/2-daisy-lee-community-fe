@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회원정보 수정</title>
+    <link rel="stylesheet" href="../../../css/utils.css">
+    <link rel="stylesheet" href="../../../css/login.css">
+    <link rel="stylesheet" href="../../../css/posts.css">
+    <script src="../../js/top.js"></script>
+    <script src="../../js/utils.js"></script>
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="mainContainer">
+        <div class="loginContainer">
+            <div class="span-text">회원정보수정</div>
+            <div style="margin: 10px 0px;">
+                <div class="div-title">
+                    <div>프로필 사진*</div>
+                    <div id="profile-button" class="profile-button" style="background-color: #4646468C;">
+                        <button class="profile-button-edit">변경</button>
+                        <img id="edit-profile-image" class="edit-profile-image">
+                    </div>
+                </div>
+                <div class="div-title" style="margin-bottom: 20px;">
+                    <div style="margin-bottom: 20px;">이메일</div>
+                    <div id="email-value" style="font-size: 14px;"></div>
+                </div>
+                <div class="div-title">
+                    <div>닉네임</div>
+                    <input id="edit-input-nickname" type="text" class="input-text" placeholder="닉네임 입력">
+                    <div id="helper-1" class="helper-text hide" style="font-size: 12px;">* 닉네임을 입력해주세요.</div>
+                    <div id="helper-2" class="helper-text hide" style="font-size: 12px;">* 띄어쓰기를 없애주세요.</div>
+                    <div id="helper-3" class="helper-text hide" style="font-size: 12px;">* 중복된 닉네임 입니다.</div>
+                    <div id="helper-4" class="helper-text hide" style="font-size: 12px;">* 닉네임은 최대 10자 까지 작성 가능합니다.
+                    </div>
+                </div>
+            </div>
+            <div class="login-button">
+                <button id="edit-nickname-submit" class="disable-button button-util" width="">수정하기</button>
+            </div>
+            <div style="text-align: center; width: -webkit-fill-available;">
+                <button id="user-delete" class="user-delete">회원 탈퇴</a>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+
+        import { isDuplicationNickname, btnLoginActive, btnLoginDisabled } from '../../js/validation.js';
+        import { api } from '../../js/utils.js';
+
+        document.addEventListener("DOMContentLoaded", () => {
+            let isValidNickname = false;
+            const nickname = document.getElementById("edit-input-nickname");
+            const editSubmit = document.getElementById("edit-nickname-submit");
+            const editDone = document.getElementById("edit-done");
+            const userDelete = document.getElementById("user-delete");
+
+            loadUserAvatar();
+
+            async function loadUserAvatar() {
+                try {
+                    const res = await fetch("http://localhost:8080/users/" + userId, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+                    if (!res.ok) {
+                        throw new Error("응답 실패");
+                    }
+
+                    const contentType = res.headers.get("content-type");
+                    if (!contentType || !contentType.includes("application/json")) {
+                        throw new Error("응답이 JSON이 아님");
+                    }
+
+                    const response = await res.json();
+
+                    document.getElementById("email-value").innerText = response.data.email;
+                    document.getElementById("edit-input-nickname").value = response.data.nickname;
+                    document.getElementById("edit-profile-image").src = "http://localhost:8080" + response.data.profileImagePath;
+
+                } catch (err) {
+                    console.error("프로필 이미지 불러오기 실패", err);
+                }
+            }
+
+            // 프로필 이미지 변경
+            // 요소 참조
+            const profileImage = document.getElementById("edit-profile-image");
+            const profileUploadInput = document.createElement("input");
+            profileUploadInput.type = "file";
+            profileUploadInput.accept = "image/*";
+            profileUploadInput.style.display = "none";
+            document.body.appendChild(profileUploadInput);
+
+            // 1. 이미지 클릭 → 파일 선택
+            document.getElementById("profile-button").addEventListener("click", () => {
+                profileUploadInput.click();
+            });
+
+            // 2. 이미지 선택 → 미리보기로 반영
+            profileUploadInput.addEventListener("change", (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        profileImage.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            editSubmit.addEventListener("click", async (e) => {
+                if (isValidNickname) {
+                    const formData = new FormData();
+                    formData.append("nickname", nickname.value);
+
+                    if (profileUploadInput.files[0]) {
+                        formData.append("profileImagePath", profileUploadInput.files[0]);
+                    }
+
+                    const res = await fetch("http://localhost:8080/users/" + userId, {
+                        method: "PATCH",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: formData
+                    });
+
+                    if (!res.ok) {
+                        alert("회원정보 수정에 실패했습니다.");
+                        return;
+                    }
+
+                    alert("회원정보가 수정되었습니다!");
+                    window.location.href = "/html/posts/list.html";
+                }
+            });
+
+
+
+            // 닉네임 입력
+            nickname.addEventListener("keyup", async function (e) {
+                let nicknameInput = nickname.value;
+                const nicknameRegex = /\s/g;
+                if (nicknameInput === "") {
+                    this.parentNode.querySelector('#helper-1').classList.remove('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    this.parentNode.querySelector('#helper-3').classList.add('hide');
+                    this.parentNode.querySelector('#helper-4').classList.add('hide');
+                    isValidNickname = false;
+                } else if (nicknameRegex.test(nicknameInput)) {
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.remove('hide');
+                    this.parentNode.querySelector('#helper-3').classList.add('hide');
+                    this.parentNode.querySelector('#helper-4').classList.add('hide');
+                    isValidNickname = false;
+                } else if (nicknameInput.length > 10) {
+                    this.parentNode.querySelector('#helper-1').classList.add('hide');
+                    this.parentNode.querySelector('#helper-2').classList.add('hide');
+                    this.parentNode.querySelector('#helper-3').classList.add('hide');
+                    this.parentNode.querySelector('#helper-4').classList.remove('hide');
+                    isValidNickname = false;
+                } else {
+                    const isDulicate = await isDuplicationNickname(nicknameInput);
+                    if (isDulicate) { // 중복된 닉네임인 경우
+                        this.parentNode.querySelector('#helper-1').classList.add('hide');
+                        this.parentNode.querySelector('#helper-2').classList.add('hide');
+                        this.parentNode.querySelector('#helper-3').classList.remove('hide');
+                        this.parentNode.querySelector('#helper-4').classList.add('hide');
+                        isValidNickname = false;
+                    } else { // 모든 조건 통과
+                        this.parentNode.querySelector('#helper-1').classList.add('hide');
+                        this.parentNode.querySelector('#helper-2').classList.add('hide');
+                        this.parentNode.querySelector('#helper-3').classList.add('hide');
+                        this.parentNode.querySelector('#helper-4').classList.add('hide');
+                        isValidNickname = true;
+                    }
+                }
+            });
+
+            window.addEventListener("keyup", (e) => {
+                if (isValidNickname) {
+                    btnLoginActive(editSubmit);
+                } else {
+                    btnLoginDisabled(editSubmit);
+                }
+            });
+
+            // 수정하기
+            editSubmit.addEventListener("click", async (e) => {
+                if (isValidNickname) {
+                    const body = {          // DTO에 userId 필요 없다면 제거
+                        nickname: nickname.value
+                    };
+
+                    const res = await fetch("http://localhost:8080/users/" + userId, {
+                        method: "PATCH",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(body)
+                    });
+
+                    if (!res.ok) throw new Error("회원정보 수정에 실패했습니다.");
+
+                    alert("회원정보가 수정되었습니다!");
+                    window.location.href = "/html/posts/list.html";
+                }
+            });
+
+            userDelete.addEventListener("click", async (e) => {
+                const res = await fetch("http://localhost:8080/users/" + userId, {
+                        method: "DELETE",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                });
+
+                if(!res.ok) throw new Error("회원탈퇴에 실패했습니다.");
+
+                const redirectURL = res.data.redirectURL;
+            });
+        });
+
+    </script>
+</body>
+
+</html>

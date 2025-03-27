@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 수정</title>
+    <link rel="stylesheet" href="../../css/utils.css">
+    <link rel="stylesheet" href="../../css/posts.css">
+</head>
+
+<body>
+    <div id="header"></div>
+    <div class="mainContainer">
+        <div class="postsContainer" style="width: 570px;">
+            <div style="font-size: 20px; text-align: center; line-height: 25px; font-weight: 700;"><strong>게시글
+                    수정</strong></div>
+            <div class="posts-write">
+                <div>제목*</div>
+                <div>
+                    <input id="posts-edit-title-input" maxlength="26" type="text" class="posts-write-title-input"
+                        placeholder="제목을 입력해주세요. (최대 26글자)">
+                </div>
+            </div>
+            <div class="posts-write">
+                <div>내용*</div>
+                <div>
+                    <textarea id="posts-edit-contents-input" class="posts-write-contents-input"
+                        placeholder="내용을 입력해주세요."></textarea>
+                </div>
+                <!-- <div class="helper-text" style="font-size: 12px;">* helper text</div> -->
+            </div>
+            <div class="posts-write" style="margin-bottom: 20px;">
+                <div>이미지</div>
+                <div style="margin-left: 10px; margin-top: -10px;">
+                    <!-- <input type="file" id="post-thumbnail-upload" accept="image/*">
+                        <label for="post-thumbnail-upload">sss</label> -->
+                    <label for="post-thumbnail-upload-edit" class="custom-file-label">파일 선택</label>
+                    <input type="file" id="post-thumbnail-upload-edit" accept="image/*" style="display: none;">
+                    <span id="posts-file-name"></span>
+
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <button id="post-edit-button" class="active-button button-util" style="width: 355px;">수정하기</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../js/utils.js" defer></script>
+    <script src="../../js/top.js"></script>
+    <script type="module">
+        import { renderEdit, setupEditSubmit } from "../../js/posts.js";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderEdit();
+            setupEditSubmit();
+        });
+
+    </script>
+</body>
+
+</html>
